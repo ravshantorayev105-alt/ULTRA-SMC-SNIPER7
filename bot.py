@@ -21,6 +21,12 @@ async def main():
 
             df = get_data(pair,"5min",API_KEY)
 
+            # BU YERDA QO'SHILADI
+            if df is None:
+                print("API data kelmadi")
+                await asyncio.sleep(60)
+                continue
+
             signal = liquidity(df)
 
             if signal is None:
