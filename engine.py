@@ -3,14 +3,18 @@ import pandas as pd
 
 def get_data(symbol, tf, key):
 
-    url=f"https://api.twelvedata.com/time_series?symbol={symbol}&interval={tf}&apikey={key}&outputsize=100"
+    url = f"https://api.twelvedata.com/time_series?symbol={symbol}&interval={tf}&apikey={key}&outputsize=100"
 
-    r=requests.get(url).json()
+    r = requests.get(url).json()
 
-    df=pd.DataFrame(r["values"])
+    if "values" not in r:
+        print("API ERROR:", r)
+        return None
 
-    df=df.astype(float)
+    df = pd.DataFrame(r["values"])
 
-    df=df.iloc[::-1]
+    df = df.astype(float)
+
+    df = df.iloc[::-1]
 
     return df
