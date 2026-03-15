@@ -13,7 +13,7 @@ def get_data(symbol, tf, key):
 
     df = pd.DataFrame(r["values"])
 
-    df = df.astype(float)
+    df = df.astype(float, errors="ignore")
 
     df = df.iloc[::-1]
 
